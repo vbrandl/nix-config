@@ -43,7 +43,6 @@
       antigen bundle zsh-users/zsh-autosuggestions
       antigen theme https://github.com/halfo/lambda-mod-zsh-theme lambda-mod
       antigen apply
-
     '';
   };
 }
