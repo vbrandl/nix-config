@@ -32,7 +32,6 @@
       "gist-vim"
       "goyo-vim"
       "neomake"
-      "neomake"
       "rust-vim"
       "vim-commentary"
       "vim-dispatch"
