@@ -24,26 +24,26 @@
       undodir = [ "$HOME/.vim/undofiles//" ];
       undofile = true;
     };
-    plugins = [
-      "coc-nvim"
-      "coc-r-lsp"
-      "ctrlp-vim"
-      "editorconfig-vim"
-      "gist-vim"
-      "goyo-vim"
-      "neomake"
-      "rust-vim"
-      "vim-commentary"
-      "vim-dispatch"
-      "vim-fugitive"
-      "vim-polyglot"
-      "vim-repeat"
-      "vim-sleuth"
-      "vim-surround"
-      "vim-trailing-whitespace"
-      "vimtex"
-      "vimux"
-      "vimwiki"
+    plugins = with pkgs.vimPlugins; [
+      coc-nvim
+      coc-r-lsp
+      ctrlp-vim
+      editorconfig-vim
+      gist-vim
+      goyo-vim
+      neomake
+      rust-vim
+      vim-commentary
+      vim-dispatch
+      vim-fugitive
+      vim-polyglot
+      vim-repeat
+      vim-sleuth
+      vim-surround
+      vim-trailing-whitespace
+      vimtex
+      vimux
+      vimwiki
     ];
     extraConfig = ''
       set nocompatible
