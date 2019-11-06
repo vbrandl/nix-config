@@ -30,10 +30,12 @@
     };
     localVariables = {
       REPORTTIME = 10;
-      TIMEFMT = "$'\\nreal\\t%*E\\nuser\\t%*U\\nsys\\t%*S\\nmaxmem\\t%M MB\\nfaults\\t%F'";
+      TIMEFMT = "\nreal\t%*E\nuser\t%*U\nsys\t%*S\nmaxmem\t%M MB\nfaults\t%F";
       NIX_PATH = "$HOME/.nix-defexpr/channels\${NIX_PATH:+:}$NIX_PATH";
       TERM = "xterm-256color";
       RUSTC_WRAPPER = "sccache";
+      GOROOT = "$HOME/go";
+      PATH = "$PATH:$HOME/.cargo/bin:$GOROOT/bin:$GOPATH/bin";
     };
     initExtra = ''
       [ -f $HOME/.nix-profile/etc/profile.d/nix.sh ] && . $HOME/.nix-profile/etc/profile.d/nix.sh
@@ -41,7 +43,9 @@
       # TODO: remove on NixOS
       antigen bundle spwhitt/nix-zsh-completions
       antigen bundle zsh-users/zsh-autosuggestions
-      antigen theme https://github.com/halfo/lambda-mod-zsh-theme lambda-mod
+      antigen bundle zsh-users/zsh-syntax-highlighting
+      antigen theme https://github.com/denysdovhan/spaceship-zsh-theme spaceship
+      # antigen theme https://github.com/halfo/lambda-mod-zsh-theme lambda-mod
       antigen apply
     '';
   };
