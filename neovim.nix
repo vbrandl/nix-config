@@ -1,32 +1,31 @@
 { config, pkgs, ... }:
 
-{
-  programs.neovim = {
-    plugins = with pkgs.vimPlugins; [
-        coc-nvim
-        coc-r-lsp
-        ctrlp-vim
-        delimitMate
-        editorconfig-vim
-        gist-vim
-        goyo-vim
-        neomake
-        rust-vim
-        vim-commentary
-        vim-dispatch
-        vim-fugitive
-        vim-polyglot
-        vim-repeat
-        vim-scala
-        vim-sleuth
-        vim-surround
-        vim-trailing-whitespace
-        vimtex
-        vimux
-        vimwiki
-    ];
-    enable = true;
-    extraConfig = ''
+let config = {
+  plugins = with pkgs.vimPlugins; [
+    coc-nvim
+    coc-r-lsp
+    ctrlp-vim
+    delimitMate
+    editorconfig-vim
+    gist-vim
+    goyo-vim
+    neomake
+    rust-vim
+    vim-commentary
+    vim-dispatch
+    vim-fugitive
+    vim-polyglot
+    vim-repeat
+    vim-scala
+    vim-sleuth
+    vim-surround
+    vim-trailing-whitespace
+    vimtex
+    vimux
+    vimwiki
+  ];
+  enable = true;
+  extraConfig = ''
       set background=dark
       " allow switching away from unsaved buffers
       set hidden
@@ -153,19 +152,19 @@
 
       " Only do this part when compiled with support for autocommands.
       if has("autocmd")
-        " Put these in an autocmd group, so that we can delete them easily.
-        augroup vimrcEx
-        au!
+      " Put these in an autocmd group, so that we can delete them easily.
+      augroup vimrcEx
+      au!
 
-        autocmd FileType text setlocal foldtext<
+      autocmd FileType text setlocal foldtext<
 
-        augroup END
+      augroup END
 
-        " remember cursor position
-        autocmd BufReadPost *
-              \ if line("'\"") > 1 && line("'\"") <= line("$") |
-              \ exe "normal! g`\"" |
-              \ endif
+      " remember cursor position
+      autocmd BufReadPost *
+      \ if line("'\"") > 1 && line("'\"") <= line("$") |
+      \ exe "normal! g`\"" |
+      \ endif
 
       endif " has("autocmd")
 
@@ -197,9 +196,9 @@
       let g:ctrlp_switch_buffer=0
       " use ripgrep if available
       if executable('rg')
-        set grepprg=rg\ --color=never
-        let g:ctrlp_user_command='rg %s --files -i --color=never --glob ""'
-        let g:ctrlp_use_caching=0
+      set grepprg=rg\ --color=never
+      let g:ctrlp_user_command='rg %s --files -i --color=never --glob ""'
+      let g:ctrlp_use_caching=0
       endif
 
       " set textwidth for mails
@@ -216,29 +215,29 @@
       "" Section AutoGroups {{{
       "" file type specific settings
       augroup configgroup
-          autocmd!
+      autocmd!
 
-          " automatically resize panes on resize
-          autocmd VimResized * exe 'normal! \<c-w>='
-          autocmd BufWritePost .vimrc,.vimrc.local,init.vim source %
-          " save all files on focus lost, ignoring warnings about untitled buffers
-          autocmd FocusLost * silent! wa
+      " automatically resize panes on resize
+      autocmd VimResized * exe 'normal! \<c-w>='
+      autocmd BufWritePost .vimrc,.vimrc.local,init.vim source %
+      " save all files on focus lost, ignoring warnings about untitled buffers
+      autocmd FocusLost * silent! wa
 
-          " make quickfix windows take all the lower section of the screen
-          " when there are multiple windows open
-          autocmd FileType qf wincmd J
+      " make quickfix windows take all the lower section of the screen
+      " when there are multiple windows open
+      autocmd FileType qf wincmd J
 
-          autocmd! BufWritePost * Neomake
+      autocmd! BufWritePost * Neomake
       augroup END
       " }}}
 
       " Append modeline after last line in buffer.
       " Use substitute() instead of printf() to handle '%%s' modeline in LaTeX files.
       function! AppendModeline()
-          let l:modeline = printf(" vim: set filetype=%s ts=%d sw=%d tw=%d %s :",
-                      \ &filetype, &tabstop, &shiftwidth, &textwidth, &expandtab ? 'et' : 'noet')
-          let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
-          call append(line("$"), l:modeline)
+      let l:modeline = printf(" vim: set filetype=%s ts=%d sw=%d tw=%d %s :",
+      \ &filetype, &tabstop, &shiftwidth, &textwidth, &expandtab ? 'et' : 'noet')
+      let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
+      call append(line("$"), l:modeline)
       endfunction
       nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 
@@ -270,21 +269,21 @@
 
       " close Goyo *and* vim with :q
       function! s:goyo_enter()
-          let b:quitting=0
-          let b:quitting_bang=0
-          autocmd QuitPre <buffer> let b:quitting=1
-          cabbrev <buffer> q! let b:quitting_bang=1 <bar> q!
+      let b:quitting=0
+      let b:quitting_bang=0
+      autocmd QuitPre <buffer> let b:quitting=1
+      cabbrev <buffer> q! let b:quitting_bang=1 <bar> q!
       endfunction
 
       function! s:goyo_leave()
-          " Quit Vim if this is the only remaining buffer
-          if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
-              if b:quitting_bang
-                  qa!
-              else
-                  qa
-              endif
-          endif
+      " Quit Vim if this is the only remaining buffer
+      if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
+      if b:quitting_bang
+      qa!
+      else
+      qa
+      endif
+      endif
       endfunction
       autocmd! User GoyoEnter call <SID>goyo_enter()
       autocmd! User GoyoLeave call <SID>goyo_leave()
@@ -299,14 +298,14 @@
       " Use tab for trigger completion with characters ahead and navigate.
       " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
       inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ coc#refresh()
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
       inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
       function! s:check_back_space() abort
-        let col = col('.') - 1
-        return !col || getline('.')[col - 1]  =~# '\s'
+      let col = col('.') - 1
+      return !col || getline('.')[col - 1]  =~# '\s'
       endfunction
 
       " Use <c-space> to trigger completion.
@@ -332,11 +331,11 @@
       nnoremap <silent> K :call <SID>show_documentation()<CR>
 
       function! s:show_documentation()
-        if (index(['vim','help'], &filetype) >= 0)
-          execute 'h '.expand('<cword>')
-        else
-          call CocAction('doHover')
-        endif
+      if (index(['vim','help'], &filetype) >= 0)
+      execute 'h '.expand('<cword>')
+      else
+      call CocAction('doHover')
+      endif
       endfunction
 
       " Highlight symbol under cursor on CursorHold
@@ -350,11 +349,11 @@
       nmap <leader>f  <Plug>(coc-format-selected)
 
       augroup mygroup
-        autocmd!
-        " Setup formatexpr specified filetype(s).
-        autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-        " Update signature help on jump placeholder
-        autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+      autocmd!
+      " Setup formatexpr specified filetype(s).
+      autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+      " Update signature help on jump placeholder
+      autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
       augroup end
 
       " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
@@ -387,7 +386,6 @@
 
       " Add status line support, for integration with other plugin, checkout `:h coc-status`
       " set statusline^=%{coc#status()}%{get(b:,'coc_current_function',''')}
-      set statusline^=%{coc#status()}%{get(b:,'coc_current_function',''')}
 
       " Using CocList
       " Show all diagnostics
@@ -407,5 +405,18 @@
       " Resume latest coc list
       nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
     '';
-  };
+}; in
+
+{
+
+  # Note that this doesn’t merge deeply, so you couldn’t add to plugins. For that
+  # you can use the nixos module system’s mkMerge with
+  # programs.neovim = lib.mkMerge [ config { vimAlias = true; } ]
+
+  programs.neovim = {
+    vimAlias = true;
+    viAlias = true;
+  } // config;
+  programs.vim = config;
+
 }
