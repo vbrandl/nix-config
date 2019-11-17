@@ -285,8 +285,12 @@ let config = {
 
       au BufRead,BufNewFile *.sbt set filetype=scala
 
-      let delimitMate_expand_cr=1
-
+      let g:coc_global_extensions = [
+        \ 'coc-explorer',
+        \ 'coc-snippets',
+        \ 'coc-pairs'
+      \ ]
+      nmap ge :CocCommand explorer<CR>
       " Use tab for trigger completion with characters ahead and navigate.
       " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
       inoremap <silent><expr> <TAB>
