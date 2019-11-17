@@ -14,6 +14,7 @@ let config = {
     vim-commentary
     vim-dispatch
     vim-fugitive
+    vim-gitgutter
     vim-polyglot
     vim-repeat
     vim-scala
