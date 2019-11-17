@@ -151,23 +151,14 @@ let config = {
       highlight clear SpellBad
       highlight SpellBad cterm=undercurl
 
-      " Only do this part when compiled with support for autocommands.
-      if has("autocmd")
-      " Put these in an autocmd group, so that we can delete them easily.
-      augroup vimrcEx
-      au!
-
-      autocmd FileType text setlocal foldtext<
-
-      augroup END
-
-      " remember cursor position
-      autocmd BufReadPost *
-      \ if line("'\"") > 1 && line("'\"") <= line("$") |
-      \ exe "normal! g`\"" |
-      \ endif
-
-      endif " has("autocmd")
+      " " Only do this part when compiled with support for autocommands.
+      " if has("autocmd")
+      " " Put these in an autocmd group, so that we can delete them easily.
+      " augroup vimrcEx
+      " au!
+      " autocmd FileType text setlocal foldtext<
+      " augroup END
+      " endif " has("autocmd")
 
       " error bells
       set errorbells
