@@ -6,6 +6,8 @@ before_script:
   - nix-channel --update
   - export NIX_PATH=$HOME/.nix-defexpr/channels${NIX_PATH:+:}$NIX_PATH
   - nix-shell '<home-manager>' -A install
+  - mkdir -p ~/.config/nixpkgs
+  - ln *.nix ~/.config/nixpkgs
 
 script:
   - home-manager switch
