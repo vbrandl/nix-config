@@ -5,7 +5,6 @@ let config = {
     coc-nvim
     coc-r-lsp
     ctrlp-vim
-    delimitMate
     editorconfig-vim
     gist-vim
     goyo-vim
