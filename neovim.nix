@@ -148,8 +148,8 @@ let config = {
 
       syntax enable
       let g:polyglot_disabled=['latex']
-      highlight clear SpellBad
-      highlight SpellBad cterm=undercurl
+      " highlight clear SpellBad
+      " highlight SpellBad cterm=undercurl
 
       " " Only do this part when compiled with support for autocommands.
       " if has("autocmd")
