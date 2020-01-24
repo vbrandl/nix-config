@@ -10,11 +10,13 @@ let config = {
     goyo-vim
     neomake
     rust-vim
+    solarized
     vim-commentary
     vim-dispatch
     vim-fugitive
     vim-gitgutter
     vim-lastplace
+    vim-nix
     vim-polyglot
     vim-repeat
     vim-scala
@@ -74,6 +76,7 @@ let config = {
       " yank into system clipboard
       set clipboard=unnamedplus
 
+      colorscheme solarized
       " true color
       set termguicolors
       " make true colors work in tmux
