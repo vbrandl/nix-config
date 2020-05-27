@@ -1,47 +1,33 @@
-{ lib, config, pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
-  mod = "Mod4";
-  ws1 = "1: ";
-  ws2 = "2: ";
-  ws3 = "3: ";
-  ws4 = "4: ";
-  ws5 = "5: ";
-  ws6 = "6: ";
-  ws7 = "7: ";
+  ws1 = "1: Ã¯Â¬";
+  ws2 = "2: Ã¯Â ";
+  ws3 = "3: Ã¯Â¡";
+  ws4 = "4: Ã¯";
+  ws5 = "5: Ã¯Â»";
+  ws6 = "6: Ã¯";
+  ws7 = "7: Ã¯Â ";
   ws8 = "8";
   ws9 = "9";
-  ws10 = "10: ";
-
-  mode_system = "System:   L :  | S :  | P :  | R :  | E : ";
+  ws10 = "10: Ã¯";
+  mod = xsession.windowManager.i3.config.modifier;
 in
 {
   xsession.windowManager.i3 = {
     enable = true;
-    package = pkgs.i3-gaps;
+    package = "pkgs.i3-gaps";
     config = {
-      modifier = mod;
-
-      workspaceAutoBackAndForth = true;
-
-      fonts = [ "NotoSans-Regular:Monospace, FontAwesome 12" ];
-      # fonts = [ "DejaVu Sans Mono, FontAwesome 6" ];
-
-      # disable titlebar
-      focus.newWindow = "none";
-
+      fonts = [ "NotoSans-Regular:Monospace 12" ];
+      modifier = "Mod4";
       assigns = {
-        "${ws1}" = [
-          { class = "^Firefox$"; }
-          { class = "firefox"; }
-          { class = "Firefox"; }
-        ];
-        "${ws4}" = [{ class="Pidgin"; }];
-        "${ws5}" = [{ class="Thunar"; }];
-        "${ws6}" = [{ class="libreoffice-startcenter"; }];
-        "${ws7}" = [{ class="Thunderbird"; }];
+        ws1 = [{ class="firefox"; }];
+        ws1 = [{ class="Firefox"; }];
+        ws4 = [{ class="Pidgin"; }];
+        ws5 = [{ class="Thunar"; }];
+        ws6 = [{ class="libreoffice-startcenter"; }];
+        ws7 = [{ class="Thunderbird"; }];
       };
-
       floating = {
         criteria = [
           { window_role = "pop-up"; }
@@ -53,8 +39,7 @@ in
           { class = "^Pinentry-gtk-2$"; }
         ];
       };
-
-      keybindings = lib.mkOptionDefault {
+      lib.mkOptionDefault {
         "${mod}+Return" = "exec termite";
         "${mod}+Shift+q" = "kill";
         "${mod}+h" = "focus left";
@@ -110,12 +95,8 @@ in
         "${mod}+Shift+e" = "exec \"i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'\"";
 
         "${mod}+r" = "mode \"resize\"";
-        "${mod}+x" = "mode \"${mode_system}\"";
-
-        "${mod}+Shift+x" = "exec i3lock-fancy -n";
       };
-
-      modes = {
+      mode = {
         resize = {
           h = "resize shrink width 10 px or 10 ppt";
           j = "resize grow height 10 px or 10 ppt";
@@ -130,29 +111,11 @@ in
           Return = "mode \"default\"";
           Escape = "mode \"default\"";
         };
-        "${mode_system}" = {
-          l = "exec ~/bin/lock.sh, mode \"default\"";
-          s = "exec $Lock systemctl suspend, mode \"default\"";
-          p = "exec systemctl poweroff -i, mode \"default\"";
-          r = "exec systemctl reboot, mode \"default\"";
-          e = "exec i3-msg exit, mode \"default\"";
-
-          # back to normal: Enter or Escape or mod+x again
-          Return = "mode \"default\"";
-          Escape = "mode \"default\"";
-          "${mod}+x" = "mode \"default\"";
-        };
       };
       window = {
         hideEdgeBorders = "both";
         titlebar = false;
       };
     };
-
-  };
-
-  services.picom = {
-    enable = true;
-    inactiveDim = "0.3";
   };
 }

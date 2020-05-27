@@ -1,34 +1,41 @@
 { config, pkgs, ... }:
 
-let config = {
-  plugins = with pkgs.vimPlugins; [
-    coc-nvim
-    coc-r-lsp
-    ctrlp-vim
-    editorconfig-vim
-    gist-vim
-    goyo-vim
-    neomake
-    rust-vim
-    solarized
-    vim-commentary
-    vim-dispatch
-    vim-fugitive
-    vim-gitgutter
-    vim-lastplace
-    vim-nix
-    vim-polyglot
-    vim-repeat
-    vim-scala
-    vim-sleuth
-    vim-surround
-    vim-trailing-whitespace
-    vimtex
-    vimux
-    vimwiki
-  ];
-  enable = true;
-  extraConfig = ''
+let
+  newNixpkgs = import (builtins.fetchTarball https://github.com/nixos/nixpkgs-channels/archive/nixos-unstable.tar.gz) {};
+  rust-analyzer = newNixpkgs.rust-analyzer;
+  # coc-nvim = newNixpkgs.vimPlugins.coc-nvim;
+  # coc-rust-analyzer = newNixpkgs.vimPlugins.coc-rust-analyzer;
+
+  config = {
+    plugins = with newNixpkgs.vimPlugins; [
+      coc-nvim
+      coc-rust-analyzer
+      coc-r-lsp
+      ctrlp-vim
+      editorconfig-vim
+      vim-gist
+      goyo-vim
+      neomake
+      rust-vim
+      solarized
+      vim-commentary
+      vim-dispatch
+      vim-fugitive
+      vim-gitgutter
+      vim-lastplace
+      vim-nix
+      vim-polyglot
+      vim-repeat
+      vim-scala
+      vim-sleuth
+      vim-surround
+      vim-trailing-whitespace
+      vimtex
+      vimux
+      vimwiki
+    ];
+    enable = true;
+    extraConfig = ''
       set background=dark
       " allow switching away from unsaved buffers
       set hidden
@@ -404,9 +411,9 @@ let config = {
       " Resume latest coc list
       nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
     '';
-}; in
+  }; in
 
-{
+  {
 
   # Note that this doesn’t merge deeply, so you couldn’t add to plugins. For that
   # you can use the nixos module system’s mkMerge with
@@ -417,5 +424,9 @@ let config = {
     viAlias = true;
   } // config;
   programs.vim = config;
+
+  xdg.configFile."nvim/coc-settings.json".text = builtins.toJSON {
+    "rust-analyzer.serverPath" = "${rust-analyzer}/bin/rust-analyzer";
+  };
 
 }
