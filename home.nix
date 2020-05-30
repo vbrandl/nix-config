@@ -132,6 +132,11 @@ in
     enable = true;
   };
 
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   home = {
     stateVersion = "20.03";
     # keyboard = {
