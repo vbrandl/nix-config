@@ -139,11 +139,11 @@ in
 
   home = {
     stateVersion = "20.03";
-    # keyboard = {
-    #   layout = "eu";
-    #   options = [
-    #     "caps:escape"
-    #   ];
-    # };
+    keyboard = {
+      layout = "eu";
+      options = [
+        "caps:escape"
+      ];
+    };
   };
 }
