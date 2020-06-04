@@ -21,7 +21,12 @@ in
 
   home.packages = with pkgs; [
     i3lock-fancy
+
     xfce.thunar
+    xfce.thunar-volman
+    # mounting external devices in thunar
+    gvfs
+
     rust-analyzer
     antigen
     nodejs
