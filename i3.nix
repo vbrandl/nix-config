@@ -49,6 +49,7 @@ in
           { title = "Preferences$"; }
           { class = "Keepassx2"; }
           { class = "keepassxc"; }
+          { class = "KeePassXC"; }
           { class = "^Pavucontrol$"; }
           { class = "^Pinentry-gtk-2$"; }
         ];
