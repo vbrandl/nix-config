@@ -3,6 +3,7 @@
 let
   newNixpkgs = import (builtins.fetchTarball https://github.com/nixos/nixpkgs-channels/archive/nixos-unstable.tar.gz) {};
   rust-analyzer = newNixpkgs.rust-analyzer;
+  gopls = newNixpkgs.gopls;
   # coc-nvim = newNixpkgs.vimPlugins.coc-nvim;
   # coc-rust-analyzer = newNixpkgs.vimPlugins.coc-rust-analyzer;
 
@@ -10,11 +11,13 @@ let
     plugins = with newNixpkgs.vimPlugins; [
       coc-nvim
       coc-rust-analyzer
+      coc-go
       coc-r-lsp
       ctrlp-vim
       editorconfig-vim
       vim-gist
       goyo-vim
+      gopls
       neomake
       rust-vim
       solarized
@@ -427,6 +430,7 @@ let
 
   xdg.configFile."nvim/coc-settings.json".text = builtins.toJSON {
     "rust-analyzer.serverPath" = "${rust-analyzer}/bin/rust-analyzer";
+    "go.goplsPath" = "${gopls}/bin/gopls";
   };
 
 }
