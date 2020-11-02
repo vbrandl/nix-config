@@ -19,6 +19,11 @@ in
     ./zsh.nix
   ];
 
+  home = {
+    homeDirectory = "/home/me";
+    username = "$USER";
+  };
+
   home.packages = with pkgs; [
     i3lock-fancy
 
@@ -145,7 +150,7 @@ in
   };
 
   home = {
-    stateVersion = "20.03";
+    stateVersion = "20.09";
     keyboard = {
       layout = "eu";
       options = [
