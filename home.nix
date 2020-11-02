@@ -43,6 +43,8 @@ in
 
   # environment.pathsToLink = [ "/share/zsh" ];
 
+  programs.go.enable = true;
+
   programs.bat.enable = true;
   programs.feh.enable = true;
   programs.fzf.enable = true;
