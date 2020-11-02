@@ -154,6 +154,6 @@ in
 
   services.picom = {
     enable = true;
-    inactiveDim = "0.3";
+    # inactiveDim = "0.3";
   };
 }
