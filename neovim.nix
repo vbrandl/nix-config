@@ -413,6 +413,8 @@ let
       nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
       " Resume latest coc list
       nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+      let g:tex_flavor = 'latex'
     '';
   }; in
 
