@@ -58,7 +58,10 @@ in
     enable = true;
     enableAliases = true;
   };
-  programs.man.enable = true;
+  programs.man = {
+    enable = true;
+    generateCaches = true;
+  };
   programs.zathura.enable = true;
 
   programs.rofi = {
