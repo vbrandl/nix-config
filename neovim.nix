@@ -194,6 +194,9 @@ let
       highlight SpecialKey ctermbg=none ctermfg=8
       highlight NonText ctermbg=none ctermfg=8
 
+      " other color for popup
+      highlight Pmenu ctermbg=gray guibg=gray
+
       " ctrlp
       " order top to bottom
       let g:ctrlp_match_window='bottom,order::ttb'
