@@ -84,6 +84,7 @@ in
         "${mod}+space" = "focus mode_toggle";
         "${mod}+a" = "focus parent";
         "${mod}+d" = "exec rofi -show drun -matching fuzzy";
+        "${mod}+Tab" = "exec rofi -show window -matching fuzzy";
 
         "${mod}+1" = "workspace ${ws1}";
         "${mod}+2" = "workspace ${ws2}";
