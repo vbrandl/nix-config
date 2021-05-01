@@ -11,13 +11,11 @@ let
     plugins = with newNixpkgs.vimPlugins; [
       coc-nvim
       coc-rust-analyzer
-      coc-go
-      coc-r-lsp
       ctrlp-vim
       editorconfig-vim
       vim-gist
       goyo-vim
-      gopls
+      # gopls
       neomake
       rust-vim
       solarized
@@ -29,11 +27,11 @@ let
       vim-nix
       vim-polyglot
       vim-repeat
-      vim-scala
+      # vim-scala
       vim-sleuth
       vim-surround
       vim-trailing-whitespace
-      vimtex
+      # vimtex
       vimux
       vimwiki
     ];
@@ -160,7 +158,7 @@ let
       set spelllang=de,en
 
       syntax enable
-      let g:polyglot_disabled=['latex']
+      " let g:polyglot_disabled=['latex']
       " highlight clear SpellBad
       " highlight SpellBad cterm=undercurl
 
@@ -301,6 +299,14 @@ let
 
       au BufRead,BufNewFile *.sbt set filetype=scala
 
+      " textwidth for emails
+      au BufRead /tmp/*mutt-* set tw=72
+      augroup filetypedetect
+        " Mail
+        autocmd BufRead,BufNewFile *mutt-*              setfiletype mail
+      augroup END
+
+
       let g:coc_global_extensions = [
         \ 'coc-explorer',
         \ 'coc-snippets',
@@ -417,7 +423,7 @@ let
       " Resume latest coc list
       nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
-      let g:tex_flavor = 'latex'
+      " let g:tex_flavor = 'latex'
     '';
   }; in
 
