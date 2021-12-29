@@ -1,20 +1,16 @@
 { config, pkgs, ... }:
 
 let
-  newNixpkgs = import (builtins.fetchTarball https://github.com/nixos/nixpkgs-channels/archive/nixos-unstable.tar.gz) {};
-  rust-analyzer = newNixpkgs.rust-analyzer;
-  packageOverrides = pkgs: {
-    nextcloud-client = pkgs.nextcloud-client.override { withGnomeKeyring = true; libgnome-keyring = pkgs.gnome3.libgnome-keyring; };
-  };
+  unstable = import <unstable> {};
 in
 {
   imports = [
-    # ./email.nix
     ./dunst.nix
     ./firefox.nix
     ./i3.nix
-    ./qt.nix
     ./neovim.nix
+    ./polybar.nix
+    ./qt.nix
     ./tmux.nix
     ./zsh.nix
   ];
@@ -32,7 +28,7 @@ in
     # mounting external devices in thunar
     gvfs
 
-    rust-analyzer
+    unstable.rust-analyzer
     antigen
     nodejs
     fortune
@@ -43,7 +39,20 @@ in
     cargo-edit
     binutils # ar and stuff
     rustup
-    sccache
+    unstable.sccache
+
+    # to view HTML emails in mutt
+    w3m
+
+    # literature/papers
+    zotero
+
+    # to copy from (n)vim into system clipboard under X11
+    # use wl-copy and wl-pate under wayland
+    xclip
+
+    # unstable.obs-studio
+    # unstable.obs-v4l2sink
   ];
 
   # environment.pathsToLink = [ "/share/zsh" ];
@@ -67,38 +76,35 @@ in
   programs.rofi = {
     enable = true;
 
-    fullscreen = true;
+    # fullscreen = true;
 
-    separator = "solid";
-    padding = 200;
+    # separator = "solid";
+    # padding = 200;
     font = "Roboto Mono 14";
-    colors = {
-      window = {
-        background = "argb:d2424655";
-        border = "argb:d2424655";
-        separator = "argb:d2525863";
-      };
-      rows = {
-        normal = {
-          background = "argb:d2424655";
-          foreground = "argb:d2838c9d";
-          backgroundAlt = "argb:d2424655";
-          highlight = {
-            background = "argb:d2424655";
-            foreground = "argb:d2f3f4f5";
-          };
-        };
-      };
+    # colors = {
+    #   window = {
+    #     background = "argb:d2424655";
+    #     border = "argb:d2424655";
+    #     separator = "argb:d2525863";
+    #   };
+    #   rows = {
+    #     normal = {
+    #       background = "argb:d2424655";
+    #       foreground = "argb:d2838c9d";
+    #       backgroundAlt = "argb:d2424655";
+    #       highlight = {
+    #         background = "argb:d2424655";
+    #         foreground = "argb:d2f3f4f5";
+    #       };
+    #     };
+    #   };
+    # };
+    extraConfig = {
+      window-format = "{w} 	{t}";
+      matching = "fuzzy";
+      line-padding = "15";
+      line-margin = "0";
     };
-    extraConfig = ''
-      ! "Window Format. w (desktop name), t (title), n (name), r (role), c (class)"
-      rofi.window-format: {w} 	{t}
-
-      rofi.matching: fuzzy
-
-      rofi.line-padding: 15
-      rofi.line-margin: 0
-      '';
   };
 
   home.sessionVariables = {
@@ -130,8 +136,6 @@ in
       ];
     };
 
-    stalonetray.enable = true;
-
     pasystray.enable = true;
   };
 
@@ -153,7 +157,7 @@ in
   };
 
   home = {
-    stateVersion = "20.09";
+    stateVersion = "21.11";
     keyboard = {
       layout = "eu";
       options = [

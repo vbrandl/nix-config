@@ -24,8 +24,11 @@ in
 
       workspaceAutoBackAndForth = true;
 
-      fonts = [ "NotoSans-Regular:Monospace, FontAwesome 12" ];
-      # fonts = [ "DejaVu Sans Mono, FontAwesome 6" ];
+      fonts = {
+        names = [ "NotoSans-Regular" "FontAwesome" ];
+        style = "Monospace";
+        size = 12.0;
+      };
 
       # disable titlebar
       focus.newWindow = "none";

@@ -1,16 +1,15 @@
 { config, pkgs, ... }:
 
 let
-  newNixpkgs = import (builtins.fetchTarball https://github.com/nixos/nixpkgs-channels/archive/nixos-unstable.tar.gz) {};
-  rust-analyzer = newNixpkgs.rust-analyzer;
-  gopls = newNixpkgs.gopls;
-  # coc-nvim = newNixpkgs.vimPlugins.coc-nvim;
-  # coc-rust-analyzer = newNixpkgs.vimPlugins.coc-rust-analyzer;
-
   config = {
-    plugins = with newNixpkgs.vimPlugins; [
+    plugins = with pkgs.vimPlugins; [
+      vim-colors-solarized
+
       coc-nvim
       coc-rust-analyzer
+      coc-pyright
+      coc-go
+
       ctrlp-vim
       editorconfig-vim
       vim-gist
@@ -423,6 +422,9 @@ let
       " Resume latest coc list
       nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
+      " properly find root for py projects in workspace
+      autocmd FileType python let b:coc_root_patterns = ['.git', '.env', 'venv', '.venv', 'setup.cfg', 'setup.py', 'pyproject.toml', 'pyrightconfig.json']
+
       " let g:tex_flavor = 'latex'
     '';
   }; in
@@ -436,12 +438,17 @@ let
   programs.neovim = {
     vimAlias = true;
     viAlias = true;
+    coc = {
+      enable = true;
+      settings = {
+        "rust-analyzer.serverPath" = "${pkgs.rust-analyzer}/bin/rust-analyzer";
+      };
+    };
   } // config;
   programs.vim = config;
 
-  xdg.configFile."nvim/coc-settings.json".text = builtins.toJSON {
-    "rust-analyzer.serverPath" = "${rust-analyzer}/bin/rust-analyzer";
-    "go.goplsPath" = "${gopls}/bin/gopls";
-  };
+  # xdg.configFile."nvim/coc-settings.json".text = builtins.toJSON {
+  #   # "go.goplsPath" = "${gopls}/bin/gopls";
+  # };
 
 }
